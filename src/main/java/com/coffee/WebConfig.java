@@ -16,7 +16,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true); // 쿠키 전송 허용
     }
 
-
     // application.properties 파일에서 uploadPath 항목의 값을 변수에 할당해 줍니다.
     @Value("${uploadPath}")
     private String uploadPath;
