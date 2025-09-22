@@ -1,4 +1,4 @@
-package com.coffee.entity;
+package com.coffee.Entity;
 
 import com.coffee.constant.Role;
 import jakarta.persistence.*;
@@ -24,9 +24,9 @@ public class Member {
     private String email;
 
     @NotBlank(message = "비밀번호는 필수 입력 사항입니다.")
-    @Size(min = 8, max = 15, message = "비밀번호는 8 ~ 15자리 이내로 입력해주세요.")
-    @Pattern(regexp = ".*[A-Z].*", message = "비밀 번호는 대문자 1개 이상을 포함해야 합니다.")
-    @Pattern(regexp = ".*[!@#$%].*", message = "비밀 번호는 특수 문자 '!@#$%' 중 하나 이상을 포함해야 합니다.")
+    @Size(min = 8, max = 15, message = "비밀번호는 8 ~ 15자 이내로 입력해주세요.")
+    @Pattern(regexp = ".*[A-Z].*", message = "비밀번호는 대문자 1개 이상을 포함해야 합니다.")
+    @Pattern(regexp = ".*[!@#$%].*", message = "비밀번호는 특수 문자 '!@#$%' 중 하나 이상을 포함해야 합니다.")
     private String password;
 
     @NotBlank(message = "주소는 필수 입력 사항입니다.")

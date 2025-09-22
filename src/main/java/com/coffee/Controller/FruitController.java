@@ -1,6 +1,6 @@
-package com.coffee.controller;
+package com.coffee.Controller;
 
-import com.coffee.entity.Fruit;
+import com.coffee.Entity.Fruit;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

@@ -1,7 +1,7 @@
-package com.coffee.service;
+package com.coffee.Service;
 
-import com.coffee.entity.Member;
-import com.coffee.repository.MemberRepository;
+import com.coffee.Entity.Member;
+import com.coffee.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +16,9 @@ public class MemberService {
 
     public void insert(Member newMember) {
         memberRepository.save(newMember); // Repository에서 insert 작업은 save() 사용
+    }
+
+    public Member findByEmailAndPassword(String email, String password) {
+        return memberRepository.findByEmailAndPassword(email, password);
     }
 }

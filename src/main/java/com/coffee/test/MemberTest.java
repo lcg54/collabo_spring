@@ -1,8 +1,8 @@
 package com.coffee.test;
 
 import com.coffee.constant.Role;
-import com.coffee.entity.Member;
-import com.coffee.repository.MemberRepository;
+import com.coffee.Entity.Member;
+import com.coffee.Repository.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
