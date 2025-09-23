@@ -14,12 +14,6 @@ public class MemberTest {
 
     @Autowired // 의존성 주입(DI, Dependency Injection) → 객체를 자동으로 주입
     private MemberRepository memberRepository; // 기본값은 null이므로 객체 주입이 필요
-    // 근데 다음과 같이 생성자를 사용하는걸 더 추천함.
-    // private final MemberRepository memberRepository;
-    //
-    // public MemberService(MemberRepository memberRepository) {
-    //     this.memberRepository = memberRepository;
-    // }
 
     @Test // 유닛(소단위)테스트
     public void insertMemberList(){

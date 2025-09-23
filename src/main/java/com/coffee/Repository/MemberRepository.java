@@ -2,7 +2,9 @@ package com.coffee.Repository;
 
 import com.coffee.Entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
 // JpaRepository<Entity 이름, 해당 Entity의 primary key의 타입>
 public interface MemberRepository extends JpaRepository<Member, Long> {
     // 쿼리 메소드(Query Method) → 메서드 이름만으로 데이터베이스 쿼리를 자동 생성. Spring Data JPA에서 사용

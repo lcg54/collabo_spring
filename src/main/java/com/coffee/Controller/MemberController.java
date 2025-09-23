@@ -73,7 +73,7 @@ public class MemberController {
             errorMap.put("password", "비밀번호가 일치하지 않습니다.");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorMap);
         }
-        // 로그인 성공 → 200 OK + 사용자 role과 email 전달
+        // 로그인 성공 → 200 OK + Map(메시지, 회원정보(role, email)) 전달
         Map<String, Object> userMap = new HashMap<>();
         userMap.put("message", rightPassword.getName() + "님, 환영합니다!");
         userMap.put("user", Map.of("role",rightPassword.getRole(), "email", rightPassword.getEmail()));
