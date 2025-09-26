@@ -8,8 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -27,29 +25,10 @@ public class ProductService {
         productRepository.save(product);
     }
 
-
-
-
-
-
-
-
-
-    public Optional<Product> findById(Long id) {
-        return productRepository.findById(id);
-    }
-
-    public Optional<Product> update(Long id, Product product) {
+    public Product findById(Long id) {
         return productRepository.findById(id)
-                .map(p -> {
-                    p.setName(product.getName());
-                    p.setPrice(product.getPrice());
-                    p.setCategory(product.getCategory());
-                    p.setStock(product.getStock());
-                    p.setImage(product.getImage());
-                    p.setDescription(product.getDescription());
-                    return productRepository.save(p);
-                });
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 상품입니다."));
+        // .get : 무조건 있다고 확신하면 사용 가능. 근데 url로 들어갈 수 있으니까 안쓰는걸로
     }
 
     public boolean delete(Long id) {
@@ -59,4 +38,17 @@ public class ProductService {
         }
         return false;
     }
+
+//    public Optional<Product> update(Long id, Product product) {
+//        return productRepository.findById(id)
+//                .map(p -> {
+//                    p.setName(product.getName());
+//                    p.setPrice(product.getPrice());
+//                    p.setCategory(product.getCategory());
+//                    p.setStock(product.getStock());
+//                    p.setImage(product.getImage());
+//                    p.setDescription(product.getDescription());
+//                    return productRepository.save(p);
+//                });
+//    }
 }
