@@ -1,5 +1,7 @@
 package com.coffee.DTO;
 
+import com.coffee.Entity.Product;
+import com.coffee.constant.Category;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class InsertRequest {
+public class ProductInsertRequest {
     @NotBlank(message = "상품명은 필수 입력 사항입니다.")
     private String name;
 
@@ -29,4 +31,13 @@ public class InsertRequest {
 
     @NotBlank(message = "상품 설명은 필수 입력 사항입니다.")
     private String description;
+
+    public void applyToEntity(Product product) {
+        product.setName(this.name);
+        product.setPrice(this.price);
+        product.setCategory(Category.valueOf(this.category));
+        product.setStock(this.stock);
+        product.setImage(this.image);
+        product.setDescription(this.description);
+    }
 }

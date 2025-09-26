@@ -1,5 +1,6 @@
 package com.coffee.Service;
 
+import com.coffee.DTO.ProductInsertRequest;
 import com.coffee.Entity.Product;
 import com.coffee.Repository.ProductRepository;
 import com.coffee.constant.Category;
@@ -14,41 +15,37 @@ public class ProductService {
     private final ProductRepository productRepository;
 
     public Page<Product> findAll(Pageable pageable, Category category) {
-        if (category != null) {
-            return productRepository.findByCategory(category, pageable);
-        } else {
-            return productRepository.findAll(pageable);
+        try {
+            return (category != null)
+                    ? productRepository.findByCategory(category, pageable)
+                    : productRepository.findAll(pageable);
+        } catch (Exception e) {
+            throw new RuntimeException("상품 목록을 불러오는 중 오류가 발생했습니다.", e);
         }
-    }
-
-    public void insert(Product product) {
-        productRepository.save(product);
     }
 
     public Product findById(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 상품입니다."));
-        // .get : 무조건 있다고 확신하면 사용 가능. 근데 url로 들어갈 수 있으니까 안쓰는걸로
     }
 
-    public boolean delete(Long id) {
-        if (productRepository.existsById(id)) {
-            productRepository.deleteById(id);
-            return true;
+    public void insert(ProductInsertRequest dto) {
+        Product product = new Product();
+        dto.applyToEntity(product);
+        productRepository.save(product);
+    }
+
+    public void update(Long id, ProductInsertRequest dto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 상품입니다."));
+        dto.applyToEntity(product);
+        productRepository.save(product);
+    }
+
+    public void delete(Long id) {
+        if (!productRepository.existsById(id)) {
+            throw new RuntimeException("존재하지 않는 상품입니다.");
         }
-        return false;
+        productRepository.deleteById(id);
     }
-
-//    public Optional<Product> update(Long id, Product product) {
-//        return productRepository.findById(id)
-//                .map(p -> {
-//                    p.setName(product.getName());
-//                    p.setPrice(product.getPrice());
-//                    p.setCategory(product.getCategory());
-//                    p.setStock(product.getStock());
-//                    p.setImage(product.getImage());
-//                    p.setDescription(product.getDescription());
-//                    return productRepository.save(p);
-//                });
-//    }
 }
