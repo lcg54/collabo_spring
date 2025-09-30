@@ -5,8 +5,6 @@ import com.coffee.Repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -22,9 +20,5 @@ public class MemberService {
 
     public Member findByEmailAndPassword(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password);
-    }
-
-    public Optional<Member> findById(Long memberId) {
-        return this.memberRepository.findById(memberId);
     }
 }
