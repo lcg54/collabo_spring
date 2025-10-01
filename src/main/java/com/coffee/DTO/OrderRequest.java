@@ -15,6 +15,7 @@ public class OrderRequest {
     @NotNull
     private Long memberId;
 
+    @NotNull
     private OrderStatus orderStatus;
 
     @NotNull

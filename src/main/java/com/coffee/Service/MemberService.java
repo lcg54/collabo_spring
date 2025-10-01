@@ -15,10 +15,15 @@ public class MemberService {
     }
 
     public void insert(Member newMember) {
-        memberRepository.save(newMember); // Repository에서 insert 작업은 save() 사용
+        memberRepository.save(newMember);
     }
 
     public Member findByEmailAndPassword(String email, String password) {
         return memberRepository.findByEmailAndPassword(email, password);
+    }
+
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
     }
 }

@@ -77,4 +77,21 @@ public class CartService {
         }
         cartProductRepository.delete(item);
     }
+
+    public void updateQuantity(Long memberId, Long itemId, int newQuantity) {
+        if (newQuantity < 1) {
+            throw new RuntimeException("수량은 1개 이상이어야 합니다.");
+        }
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
+        Cart cart = cartRepository.findByMember(member)
+                .orElseThrow(() -> new RuntimeException("장바구니가 존재하지 않습니다."));
+        CartProduct item = cartProductRepository.findById(itemId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 장바구니 상품입니다."));
+        if (!item.getCart().equals(cart)) {
+            throw new RuntimeException("해당 회원의 장바구니 상품이 아닙니다.");
+        }
+        item.setQuantity(newQuantity);
+        cartProductRepository.save(item);
+    }
 }

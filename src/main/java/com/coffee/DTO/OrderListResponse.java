@@ -4,12 +4,14 @@ import com.coffee.constant.OrderStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class OrderResponse {
-    private Long memberId;
+public class OrderListResponse {
+    private Long orderId;
+    private LocalDate orderDate;
     private OrderStatus orderStatus;
-    private List<OrderProductResponse> orderItems;
+    private List<OrderProductListResponse> orderItems;
 }
