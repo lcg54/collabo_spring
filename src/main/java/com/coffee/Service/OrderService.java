@@ -55,14 +55,16 @@ public class OrderService {
             product.setStock(product.getStock() - orderItem.getQuantity());
 
             // 카트 갱신
-            CartProduct item = cartProductRepository.findById(orderItem.getCartProductId())
-                    .orElseThrow(() -> new RuntimeException("카트상품을 찾을 수 없습니다."));
-            int remainingQty = item.getQuantity() - orderItem.getQuantity();
-            if (remainingQty <= 0) { // 카트상품 수량 <= 0 이면
-                cartProductRepository.delete(item); // 카트에서 상품 제거
-            } else { // 카트상품 수량이 남아있으면
-                item.setQuantity(remainingQty); // 카트상품 수량 갱신하고
-                cartProductRepository.save(item); // 카트상품 저장
+            if (orderItem.getCartProductId() != 0) { // 카트상품 번호가 0이 아닌 경우 (바로구매가 아닌 경우)
+                CartProduct item = cartProductRepository.findById(orderItem.getCartProductId())
+                        .orElseThrow(() -> new RuntimeException("카트상품을 찾을 수 없습니다."));
+                int remainingQty = item.getQuantity() - orderItem.getQuantity();
+                if (remainingQty <= 0) { // 카트상품 수량 <= 0 이면
+                    cartProductRepository.delete(item); // 카트에서 상품 제거
+                } else { // 카트상품 수량이 남아있으면
+                    item.setQuantity(remainingQty); // 카트상품 수량 갱신하고
+                    cartProductRepository.save(item); // 카트상품 저장
+                }
             }
         }
         // 주문 저장
