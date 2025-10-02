@@ -2,6 +2,7 @@ package com.coffee.Controller;
 
 import com.coffee.DTO.OrderListResponse;
 import com.coffee.DTO.OrderRequest;
+import com.coffee.DTO.OrderStatusUpdateRequest;
 import com.coffee.Service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,9 +35,13 @@ public class OrderController {
         return ResponseEntity.ok("주문이 삭제되었습니다.");
     }
 
-    @PutMapping("/update/{orderId}")
-    public ResponseEntity<?> updateOrderStatus(@PathVariable Long orderId, @RequestParam String newStatus, @RequestParam String role) {
-        orderService.updateOrderStatus(orderId, newStatus, role);
+    @PatchMapping("/update/{orderId}")
+    public ResponseEntity<?> updateOrderStatus(
+            @PathVariable Long orderId,
+            @RequestBody OrderStatusUpdateRequest request,
+            @RequestParam String role) {
+
+        orderService.updateOrderStatus(orderId, request.getNewStatus(), role);
         return ResponseEntity.ok("주문 상태가 변경되었습니다.");
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -74,5 +75,11 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         productService.delete(id);
         return ResponseEntity.status(HttpStatus.OK).body("상품이 삭제되었습니다.");
+    }
+
+    @GetMapping("/images")
+    public ResponseEntity<List<Product>> getBigImages() {
+        List<Product> products = productService.findByImageKeyword("bigsize");
+        return ResponseEntity.ok(products);
     }
 }
