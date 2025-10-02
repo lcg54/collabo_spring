@@ -13,7 +13,7 @@ public class CartProduct {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY) // 카트상품 다수에 카트 하나 대응
-    @JoinColumn(name = "cart_id)")
+    @JoinColumn(name = "cart_id")
     private Cart cart;
 
     @ManyToOne(fetch = FetchType.LAZY)  // 카트상품에 다수에 상품 하나 대응

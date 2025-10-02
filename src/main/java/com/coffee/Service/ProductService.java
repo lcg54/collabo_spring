@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class ProductService {
@@ -49,9 +47,5 @@ public class ProductService {
             throw new RuntimeException("존재하지 않는 상품입니다.");
         }
         productRepository.deleteById(id);
-    }
-
-    public Optional<Product> findProductById(Long productId) {
-        return this.productRepository.findById(productId);
     }
 }

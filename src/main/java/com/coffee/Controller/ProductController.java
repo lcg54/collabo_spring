@@ -44,7 +44,7 @@ public class ProductController {
 
     @PostMapping("/insert")
     public ResponseEntity<?> insert(@RequestBody @Valid ProductInsertRequest dto, BindingResult bindingResult) {
-        // validation 실패 → 400 Bad Request
+        // validation 실패 → 400 Bad Request, 사용자에게 보여줄 에러 메시지
         if (bindingResult.hasErrors()) {
             Map<String, String> errMap = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
@@ -58,7 +58,7 @@ public class ProductController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateProduct(@PathVariable Long id, @RequestBody @Valid ProductInsertRequest dto, BindingResult bindingResult) {
-        // validation 실패 → 400 Bad Request
+        // validation 실패 → 400 Bad Request, 사용자에게 보여줄 에러 메시지
         if (bindingResult.hasErrors()) {
             Map<String, String> errorMap = new HashMap<>();
             for (FieldError error : bindingResult.getFieldErrors()) {
