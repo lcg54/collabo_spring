@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,17 +17,24 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public Page<Product> findAll(Pageable pageable, Category category) {
+    public Page<Product> getFilteredProducts(Pageable pageable, Category category, String period, String searchType, String keyword) {
         try {
-            return (category != null)
-                    ? productRepository.findByCategory(category, pageable)
-                    : productRepository.findAll(pageable);
+            LocalDate startDate = null;
+            if (period != null) {
+                switch (period) {
+                    case "1M" -> startDate = LocalDate.now().minusMonths(1);
+                    case "6M" -> startDate = LocalDate.now().minusMonths(6);
+                    case "1Y" -> startDate = LocalDate.now().minusYears(1);
+                }
+            }
+            return productRepository.findAllByFilters(category, startDate, searchType, keyword, pageable);
+
         } catch (Exception e) {
             throw new RuntimeException("상품 목록을 불러오는 중 오류가 발생했습니다.", e);
         }
     }
 
-    public Product findById(Long id) {
+    public Product detail(Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 상품입니다."));
     }
