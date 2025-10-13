@@ -40,10 +40,10 @@ public class ProductController {
             @RequestParam(required = false) String searchType,
             @RequestParam(required = false) String keyword
     ) {
-        Page<Product> productPage = productService.getFilteredProducts(PageRequest.of(page - 1, size), category, period, searchType, keyword);
+        Page<Product> productsInPage = productService.getFilteredProducts(PageRequest.of(page - 1, size), category, period, searchType, keyword);
         Map<String, Object> resMap = new HashMap<>();
-        resMap.put("products", productPage.getContent());
-        resMap.put("totalPages", productPage.getTotalPages());
+        resMap.put("products", productsInPage.getContent());
+        resMap.put("totalPages", productsInPage.getTotalPages());
         resMap.put("currentPage", page);
         return ResponseEntity.ok(resMap);
     }
@@ -135,8 +135,7 @@ public class ProductController {
 
     // 이미지 경로를 반환하는 메서드
     private String getProductImagePath() {
-        // 폴더 구분자가 제대로 설정되어 있지 않으면 추가
-        // File.separator : 폴더 구분자. 리눅스는 /, 윈도우는 \
+        // 폴더 구분자가 제대로 설정되어 있지 않으면 추가(File.separator)
         return productImageLocation.endsWith("\\") || productImageLocation.endsWith("/")
                 ? productImageLocation
                 : productImageLocation + File.separator;
